@@ -1,0 +1,98 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.163.0/containers/python-3
+{
+	/*You can also directly use an image instead to specifying a Dockerfile*/
+	//"image": "vsc-blackduck-release-automation-2203e5a2e804094fe00f363741f4effa:latest",
+
+	/*If you are using an `image` directly remove `name` and `build` data*/
+	"name": "Python 3",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": {
+			// Update 'VARIANT' to pick a Python version: 3, 3.6, 3.7, 3.8, 3.9
+			"VARIANT": "3.7"
+		}
+	},
+	"runArgs": ["--init"],
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/Documents/git,target=/home/vscode/Documents/git,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/Documents/git,target=/root/git,type=bind,consistency=cached",
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind,consistency=cached"
+	  ],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"python.languageServer": "Pylance",
+		"window.zoomLevel": 0,
+		"editor.fontSize": 13,
+		"terminal.integrated.fontSize": 14,
+		"editor.minimap.enabled": false,
+		"workbench.activityBar.visible": true,
+		"workbench.statusBar.visible": true,
+		"breadcrumbs.enabled": true,
+		"workbench.colorCustomizations": {
+			"editorRuler.foreground": "#a7dfff"
+		},
+		"[python]": {
+			"editor.rulers": [100]
+		},
+
+		"editor.renderWhitespace": "all",
+		"files.insertFinalNewline": true,
+		"files.trimTrailingWhitespace": true,
+		"files.trimFinalNewlines": true,
+		"workbench.list.openMode": "doubleClick",
+		"docker.commands.build": [],
+		"files.exclude": {
+			"**/__pycache__": true,
+			"**/.mypy_cache": true
+		},
+		"gitlens.hovers.currentLine.over": "line",
+		"gitlens.mode.active": "review",
+
+
+		"terminal.integrated.shell.linux": "/bin/zsh",
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": true,
+		"python.linting.pylintUseMinimalCheckers": false,
+		"python.linting.lintOnSave": true,
+		"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+		"files.autoSave": "afterDelay",
+		"python.formatting.provider": "autopep8",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+		},
+		"python.testing.pytestArgs": [
+			"test"
+		],
+		"python.testing.unittestEnabled": false,
+		"python.testing.nosetestsEnabled": false,
+		"python.testing.pytestEnabled": true
+
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"eamodio.gitlens",
+		"ms-azuretools.vscode-docker",
+		"njpwerner.autodocstring",
+		"buenon.scratchpads",
+		"redhat.vscode-yaml",
+		"coenraads.bracket-pair-colorizer-2",
+	],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip3 install -r requirements.txt --index-url https://pypi.python.org/simple --extra-index-url https://artifactory.internal.synopsys.com/artifactory/api/pypi/pypi-virtual/simple",
+
+
+	// Comment out to connect as root instead. (If you need to run docker command inside container)
+	// "remoteUser": "vscode"
+}
