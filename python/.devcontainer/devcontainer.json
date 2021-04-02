@@ -90,7 +90,7 @@
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install -r requirements.txt --index-url https://pypi.python.org/simple --extra-index-url https://artifactory.internal.synopsys.com/artifactory/api/pypi/pypi-virtual/simple",
+	"postCreateCommand": "pip3 install -r requirements.txt --index-url https://pypi.python.org/simple",
 
 
 	// Comment out to connect as root instead. (If you need to run docker command inside container)
